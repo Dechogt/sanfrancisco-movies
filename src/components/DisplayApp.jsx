@@ -10,7 +10,7 @@ import MyMap from './Map'
         <Grid
             container
             spacing={2}
-            sx={{width:'99%', height:'600px', display:'flex', justifyContent:'center', border:'1px solid red', borderRadius: '20px'}}
+            sx={{width:'99%', height:'100vh', display:'flex', justifyContent:'center', border:'1px solid red', borderRadius: '20px'}}
         >
               <Grid
                 sx={{width:'35%', border:'1px solid red' }}
