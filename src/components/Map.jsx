@@ -7,13 +7,13 @@ const MyMap = ({ film }) => {
     // const newMarker=  [Lat, Lng]? defaultCenter : film
 
     return (
-        <MapContainer 
-            center = {defaultCenter} 
-            zoom = {12} 
-            scrollWheelZoom = {false} 
-            style = {{ 
-                height: "600px", 
-                width: "100%", 
+        <MapContainer
+            center={defaultCenter}
+            zoom={12}
+            scrollWheelZoom={false}
+            style={{
+                height: "600px",
+                width: "100%",
                 borderRadius: '25px'
             }}>
             <TileLayer

@@ -122,11 +122,12 @@ const DisplayApp = () => {
                 {userWant.map((film, index) => (
                   <li
                     key={index}
-                    style={{ 
+                    style={{
                       padding: "8px",
-                      cursor: "pointer", 
-                      textTransform:'lowercase', 
-                      fontSize:"14px" }}
+                      cursor: "pointer",
+                      textTransform: 'lowercase',
+                      fontSize: "14px"
+                    }}
                     onClick={() => userWantThis(film)}
                   >
                     {film.title} ({film.locations})
