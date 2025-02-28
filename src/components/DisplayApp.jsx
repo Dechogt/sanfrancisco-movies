@@ -42,8 +42,7 @@ const DisplayApp = () => {
   return (
     <>
       <h1 style={{
-        display: 'flex',
-        justifySelf: 'center',
+        textAlign: 'center',
         fontFamily: 'insaniburger',
         fontSize: '35px',
         color: 'green',
@@ -53,17 +52,16 @@ const DisplayApp = () => {
 
       <Grid
         container
-        spacing={2}
+        spacing={1}
         sx={{
-          width: '99%',
           display: 'flex',
           justifyContent: 'center'
         }}
       >
         <Grid
           container
+          size={4}
           sx={{
-            width: '35%',
             border: '2px solid green',
             display: 'flex',
             justifyContent: 'center',
@@ -118,23 +116,29 @@ const DisplayApp = () => {
                   backgroundColor: "#ffffffe",
                   position: "absolute",
                   top: "45px",
-                  zIndex: 1
+                  zIndex: 10
                 }}
               >
                 {userWant.map((film, index) => (
                   <li
                     key={index}
-                    style={{ padding: "8px", cursor: "pointer" }}
+                    style={{ 
+                      padding: "8px",
+                      cursor: "pointer", 
+                      textTransform:'lowercase', 
+                      fontSize:"14px" }}
                     onClick={() => userWantThis(film)}
                   >
-                    {film.title}
+                    {film.title} ({film.locations})
                   </li>
                 ))}
               </ul>
             )}
           </Box>
         </Grid>
-        <Grid sx={{ width: '63%' }}>
+        <Grid
+          size={8}
+        >
           <MyMap film={afficheFilmUser} />
         </Grid>
       </Grid>
