@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Grid2 as Grid, Box } from '@mui/material'
 import MyMap from './Map'
 
@@ -7,6 +7,7 @@ const DisplayApp = () => {
   const [userTyping, setUserTyping] = useState("")
   const [absFilm, setAbsFilm] = useState(null)
   const [userWant, setUserWant] = useState([])
+  const mapRef = useRef(null)
 
   useEffect(() => {
     fetch("/data.json")
@@ -18,6 +19,8 @@ const DisplayApp = () => {
   useEffect(() => {
     if (userTyping.trim() === "") {
       setUserWant([])
+      // Réinitialiser absFilm quand le champ est vide
+      setAbsFilm(null)
       return
     }
     const findfilm = film.filter((film) =>
@@ -34,7 +37,10 @@ const DisplayApp = () => {
 
   const rechercher = (e) => {
     setUserTyping(e.target.value)
-    setAbsFilm(null)
+    // Si le champ est vidé, réinitialiser le film sélectionné
+    if (e.target.value === "") {
+      setAbsFilm(null)
+    }
   }
 
   const afficheFilmUser = absFilm ? [absFilm] : film
@@ -140,7 +146,7 @@ const DisplayApp = () => {
         <Grid
           size={8}
         >
-          <MyMap film={afficheFilmUser} />
+          <MyMap film={afficheFilmUser} mapRef={mapRef} selectedFilm={absFilm} />
         </Grid>
       </Grid>
     </>

@@ -1,11 +1,32 @@
-import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet"
+import React, { useEffect } from 'react'
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 
-const MyMap = ({ film }) => {
-    const defaultCenter = [37.79, -122.4]
-    // const newMarker=  [Lat, Lng]? defaultCenter : film
+// Composant pour accéder à l'instance de carte et l'exposer via le ref
+const MapController = ({ mapRef, selectedFilm }) => {
+    const map = useMap();
 
+    useEffect(() => {
+        if (mapRef) {
+            mapRef.current = map
+            
+        }
+
+        // Centrer la carte sur le film sélectionné
+        if (selectedFilm && selectedFilm.lat && selectedFilm.lng) {
+            map.flyTo(
+                [parseFloat(selectedFilm.lat), parseFloat(selectedFilm.lng)],
+                14,
+                { duration: 1 }
+            )
+        }
+    }, [map, mapRef, selectedFilm])
+
+    return null
+};
+
+const MyMap = ({ film, mapRef, selectedFilm }) => {
+    const defaultCenter = [37.79, -122.4]
     return (
         <MapContainer
             center={defaultCenter}
@@ -16,6 +37,9 @@ const MyMap = ({ film }) => {
                 width: "100%",
                 borderRadius: '25px'
             }}>
+
+            <MapController mapRef={mapRef} selectedFilm={selectedFilm} />
+
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -27,6 +51,7 @@ const MyMap = ({ film }) => {
                 return (
                     <Marker key={index} position={[Lat, Lng]}>
                         <Popup
+                            ref={selectedFilm}
                             sx={{ display: 'flex', justifyContent: 'center', minWith: '500px' }}
                         >
                             <h2> {film.title} </h2>
